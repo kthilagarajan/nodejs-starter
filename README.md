@@ -19,3 +19,21 @@ cp .env.template .env
 ```bash
 npm run start:dev
 ```
+
+## Build
+
+```bash
+npm run build
+```
+
+## Start the built server
+
+```bash
+npm run pm2:start
+```
+
+## Stop the built server
+
+```bash
+npm run pm2:stop
+```
