@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  nodejs-starter:
+    image: nodejs-starter:latest
+    container_name: nodejs-starter
+    volumes:
+      - ./logs:/app/logs
+    ports:
+      - "8080:8080"
+    environment:
+      - ENVIRONMENT=development

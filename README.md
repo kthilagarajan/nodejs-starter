@@ -37,3 +37,9 @@ npm run pm2:start
 ```bash
 npm run pm2:stop
 ```
+
+## Build Docker image
+
+```bash
+docker build -t nodejs-starter .
+```

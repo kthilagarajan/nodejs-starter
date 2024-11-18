@@ -11,16 +11,21 @@ import helmet from "helmet";
 import hpp from "hpp";
 import rateLimit from "express-rate-limit";
 import { CustomError } from "./common/types";
+import logger from "./utils/logger";
 
 const app = express();
 
 app.use(bodyParser.json({ limit: "50mb" }));
 
-/* Logging */
+// Use morgan with winston to log HTTP requests
 app.use(
-  morgan(
-    ':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :response-time ms'
-  )
+  morgan("combined", {
+    stream: {
+      write: (message: string) => {
+        logger.info(message.trim()); // Pass the morgan log to winston logger
+      },
+    },
+  })
 );
 
 /* Security */
@@ -70,7 +75,7 @@ app.use("*", (req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use((err: CustomError, req: Request, res: Response, next: NextFunction) => {
-  console.log("err", err);
+  logger.error("err", err);
   res.status(err.status || 500);
   res.json({
     error: {

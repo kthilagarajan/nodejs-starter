@@ -6,22 +6,22 @@ dotenv.config({
 
 import app from "./app";
 import http from "http";
+import logger from "./utils/logger";
 const server = http.createServer(app);
 
 const port = process.env.PORT || 8080;
 server.listen(port, async () => {
-  console.log(
+  logger.info(
     `[SERVER] Node ${process.env.ENVIRONMENT} API Server is running on port ${port}`
   );
 });
 
 process.on("unhandledRejection", (err: Error) => {
-  console.log("[DANGER] Unhandled Rejection! Server Stopped!");
-  console.trace(err);
-  console.log(err.name, err.message);
+  logger.error("[DANGER] Unhandled Rejection! Server Stopped!");
+  logger.error(err.name, err.message);
 });
 
 process.on("uncaughtException", (err) => {
-  console.log("[DANGER] Uncaught Exception! Server Stopped!");
-  console.log(err.name, err.message, err);
+  logger.error("[DANGER] Uncaught Exception! Server Stopped!");
+  logger.error(err.name, err.message, err);
 });
