@@ -3,7 +3,9 @@ version: '3.8'
 services:
   nodejs-starter:
     image: nodejs-starter:latest
-    container_name: nodejs-starter
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - ./logs:/app/logs
     ports:
